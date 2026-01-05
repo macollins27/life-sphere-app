@@ -1,0 +1,460 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================================================
+// AUTH & USERS
+// ============================================================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  username      String    @unique
+  displayName   String?
+  passwordHash  String?
+  avatarUrl     String?
+  bio           String?
+  location      String?
+  website       String?
+
+  role   UserRole   @default(MEMBER)
+  status UserStatus @default(ACTIVE)
+
+  // Stats (denormalized for performance)
+  postCount   Int @default(0)
+  threadCount Int @default(0)
+  reputation  Int @default(0)
+
+  // Timestamps
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  lastSeenAt DateTime?
+
+  // Relations
+  accounts      Account[]
+  sessions      Session[]
+  threads       Thread[]
+  posts         Post[]
+  reactions     Reaction[]
+  notifications Notification[]
+
+  // Moderation
+  reportsCreated    Report[]        @relation("ReportCreator")
+  reportsReceived   Report[]        @relation("ReportTarget")
+  moderationActions ModerationLog[] @relation("Moderator")
+
+  @@index([email])
+  @@index([username])
+  @@index([status])
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+enum UserRole {
+  MEMBER
+  MODERATOR
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+  PENDING_VERIFICATION
+}
+
+// ============================================================================
+// FORUM STRUCTURE
+// ============================================================================
+
+model Category {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+  icon        String? // Icon name or emoji
+  color       String? // Hex color for UI
+
+  // Ordering & visibility
+  sortOrder Int     @default(0)
+  isVisible Boolean @default(true)
+  isLocked  Boolean @default(false)
+
+  // Permissions (JSON for flexibility)
+  permissions Json @default("{}")
+
+  // Stats (denormalized)
+  threadCount Int @default(0)
+  postCount   Int @default(0)
+
+  // Hierarchy (optional subcategories)
+  parentId String?
+  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  threads Thread[]
+
+  @@index([slug])
+  @@index([parentId])
+  @@index([sortOrder])
+  @@map("categories")
+}
+
+model Thread {
+  id    String @id @default(cuid())
+  title String
+  slug  String
+
+  // Content for the opening post (stored here for query efficiency)
+  content     String  @db.Text
+  contentHtml String? @db.Text // Pre-rendered HTML (optional)
+
+  // Thread state
+  status     ThreadStatus @default(OPEN)
+  isPinned   Boolean      @default(false)
+  isLocked   Boolean      @default(false)
+  isFeatured Boolean      @default(false)
+
+  // Stats (denormalized)
+  postCount     Int @default(0)
+  viewCount     Int @default(0)
+  reactionCount Int @default(0)
+
+  // Timestamps
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  lastPostAt DateTime @default(now())
+
+  // Relations
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  posts     Post[]
+  reactions Reaction[]
+  tags      TagsOnThreads[]
+
+  @@unique([categoryId, slug])
+  @@index([authorId])
+  @@index([categoryId])
+  @@index([status])
+  @@index([isPinned, lastPostAt])
+  @@index([createdAt])
+  @@index([lastPostAt])
+  @@map("threads")
+}
+
+model Post {
+  id          String  @id @default(cuid())
+  content     String  @db.Text
+  contentHtml String? @db.Text
+
+  // Post state
+  isEdited  Boolean @default(false)
+  isDeleted Boolean @default(false) // Soft delete
+
+  // Stats
+  reactionCount Int @default(0)
+
+  // Position in thread (for pagination)
+  position Int @default(0)
+
+  // Timestamps
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  editedAt  DateTime?
+
+  // Relations
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+
+  threadId String
+  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  // Reply hierarchy (optional nested replies)
+  parentId String?
+  parent   Post?   @relation("PostReplies", fields: [parentId], references: [id])
+  replies  Post[]  @relation("PostReplies")
+
+  reactions Reaction[]
+
+  @@index([authorId])
+  @@index([threadId])
+  @@index([parentId])
+  @@index([threadId, position])
+  @@index([createdAt])
+  @@map("posts")
+}
+
+enum ThreadStatus {
+  OPEN
+  CLOSED
+  ARCHIVED
+  DELETED
+}
+
+// ============================================================================
+// TAGS
+// ============================================================================
+
+model Tag {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  slug        String  @unique
+  description String?
+  color       String?
+
+  usageCount Int @default(0)
+
+  createdAt DateTime @default(now())
+
+  threads TagsOnThreads[]
+
+  @@index([slug])
+  @@map("tags")
+}
+
+model TagsOnThreads {
+  threadId String
+  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  tagId String
+  tag   Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([threadId, tagId])
+  @@index([tagId])
+  @@map("tags_on_threads")
+}
+
+// ============================================================================
+// REACTIONS
+// ============================================================================
+
+model Reaction {
+  id   String       @id @default(cuid())
+  type ReactionType
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Polymorphic: reaction can be on thread OR post
+  threadId String?
+  thread   Thread? @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  postId String?
+  post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, threadId])
+  @@unique([userId, postId])
+  @@index([threadId])
+  @@index([postId])
+  @@map("reactions")
+}
+
+enum ReactionType {
+  LIKE
+  LOVE
+  INSIGHTFUL
+  HELPFUL
+  CELEBRATE
+}
+
+// ============================================================================
+// NOTIFICATIONS
+// ============================================================================
+
+model Notification {
+  id       String           @id @default(cuid())
+  type     NotificationType
+  title    String
+  message  String?
+  link     String?
+  metadata Json             @default("{}")
+
+  isRead Boolean   @default(false)
+  readAt DateTime?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, isRead])
+  @@index([userId, createdAt])
+  @@map("notifications")
+}
+
+enum NotificationType {
+  THREAD_REPLY
+  POST_REPLY
+  MENTION
+  REACTION
+  FOLLOW
+  SYSTEM
+  MODERATION
+}
+
+// ============================================================================
+// MODERATION
+// ============================================================================
+
+model Report {
+  id      String       @id @default(cuid())
+  type    ReportType
+  reason  String
+  details String?      @db.Text
+  status  ReportStatus @default(PENDING)
+
+  // Who created the report
+  creatorId String
+  creator   User   @relation("ReportCreator", fields: [creatorId], references: [id])
+
+  // Who/what is being reported
+  targetUserId String?
+  targetUser   User?   @relation("ReportTarget", fields: [targetUserId], references: [id])
+
+  targetThreadId String?
+  targetPostId   String?
+
+  // Resolution
+  resolvedAt   DateTime?
+  resolvedById String?
+  resolution   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([creatorId])
+  @@index([targetUserId])
+  @@map("reports")
+}
+
+model ModerationLog {
+  id      String           @id @default(cuid())
+  action  ModerationAction
+  reason  String?
+  details Json             @default("{}")
+
+  moderatorId String
+  moderator   User   @relation("Moderator", fields: [moderatorId], references: [id])
+
+  targetUserId   String?
+  targetThreadId String?
+  targetPostId   String?
+
+  createdAt DateTime @default(now())
+
+  @@index([moderatorId])
+  @@index([targetUserId])
+  @@index([createdAt])
+  @@map("moderation_logs")
+}
+
+enum ReportType {
+  SPAM
+  HARASSMENT
+  INAPPROPRIATE
+  MISINFORMATION
+  OTHER
+}
+
+enum ReportStatus {
+  PENDING
+  REVIEWING
+  RESOLVED
+  DISMISSED
+}
+
+enum ModerationAction {
+  WARN
+  MUTE
+  SUSPEND
+  BAN
+  UNBAN
+  DELETE_POST
+  DELETE_THREAD
+  LOCK_THREAD
+  UNLOCK_THREAD
+  PIN_THREAD
+  UNPIN_THREAD
+  EDIT_CONTENT
+}
+
+// ============================================================================
+// SEARCH & ANALYTICS (Optional)
+// ============================================================================
+
+model SearchIndex {
+  id         String @id @default(cuid())
+  entityType String // 'thread' | 'post' | 'user'
+  entityId   String
+  content    String @db.Text
+  metadata   Json   @default("{}")
+
+  updatedAt DateTime @updatedAt
+
+  @@unique([entityType, entityId])
+  @@index([entityType])
+  @@map("search_index")
+}
