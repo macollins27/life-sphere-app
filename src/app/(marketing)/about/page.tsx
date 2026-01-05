@@ -9,14 +9,14 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="border-b border-stone-200 bg-gradient-to-b from-[#4A7C59]/5 to-transparent">
+      <div className="border-b border-muted-200 bg-gradient-to-b from-primary-50 to-transparent">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
-          <h1 className="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
+          <h1 className="font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             About Life Sphere
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-xl text-stone-600">
+          <p className="mx-auto mt-6 max-w-2xl text-xl text-foreground-muted">
             A journey toward holistic wellness, one mindful step at a time.
           </p>
         </div>
@@ -26,15 +26,15 @@ export default function AboutPage() {
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
         {/* Mission Section */}
         <section className="mb-16">
-          <h2 className="mb-6 text-2xl font-bold text-stone-900">Our Mission</h2>
-          <div className="prose prose-stone prose-lg max-w-none">
-            <p className="leading-relaxed text-stone-700">
+          <h2 className="mb-6 font-serif text-2xl font-bold text-foreground">Our Mission</h2>
+          <div className="prose prose-lg max-w-none">
+            <p className="leading-relaxed text-foreground-muted">
               Life Sphere was created with a simple yet profound mission: to help
               individuals achieve a balanced, fulfilling life by nurturing their
               physical, mental, and spiritual well-being. We believe that true
               wellness comes from harmony between all aspects of our lives.
             </p>
-            <p className="leading-relaxed text-stone-700">
+            <p className="leading-relaxed text-foreground-muted">
               In a world that often pulls us in countless directions, we provide a
               sanctuary for reflection, growth, and connection. Our platform
               combines time-tested wisdom with modern understanding to create
@@ -45,16 +45,16 @@ export default function AboutPage() {
 
         {/* Story Section */}
         <section className="mb-16">
-          <h2 className="mb-6 text-2xl font-bold text-stone-900">The Story</h2>
-          <div className="prose prose-stone prose-lg max-w-none">
-            <p className="leading-relaxed text-stone-700">
+          <h2 className="mb-6 font-serif text-2xl font-bold text-foreground">The Story</h2>
+          <div className="prose prose-lg max-w-none">
+            <p className="leading-relaxed text-foreground-muted">
               Life Sphere began as a personal journey. Like many, I found myself
               caught in the cycle of modern life—always busy, often stressed, and
               disconnected from what truly matters. It was during this time that I
               started exploring different approaches to wellness, drawing from
               ancient practices and contemporary research alike.
             </p>
-            <p className="leading-relaxed text-stone-700">
+            <p className="leading-relaxed text-foreground-muted">
               What I discovered was transformative. Small, intentional changes in
               how I ate, moved, thought, and connected with others led to
               profound shifts in my overall well-being. The Life Sphere Handbook
@@ -62,7 +62,7 @@ export default function AboutPage() {
               and practices that have helped me and many others live more
               balanced, purposeful lives.
             </p>
-            <p className="leading-relaxed text-stone-700">
+            <p className="leading-relaxed text-foreground-muted">
               Today, Life Sphere has grown into a community of like-minded
               individuals who support each other on this path. We share our
               experiences, learn from one another, and celebrate the small
@@ -73,14 +73,14 @@ export default function AboutPage() {
 
         {/* Why Life Sphere Section */}
         <section className="mb-16">
-          <h2 className="mb-6 text-2xl font-bold text-stone-900">
+          <h2 className="mb-6 font-serif text-2xl font-bold text-foreground">
             Why Life Sphere?
           </h2>
           <div className="grid gap-6 sm:grid-cols-2">
-            <div className="rounded-xl bg-stone-50 p-6">
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-[#4A7C59]/10">
+            <div className="rounded-2xl bg-muted-50 p-6">
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary-100">
                 <svg
-                  className="h-5 w-5 text-[#4A7C59]"
+                  className="h-5 w-5 text-primary-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -93,19 +93,19 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <h3 className="mb-2 font-semibold text-stone-900">
+              <h3 className="mb-2 font-semibold text-foreground">
                 Comprehensive Guidance
               </h3>
-              <p className="text-sm text-stone-600">
+              <p className="text-sm text-foreground-muted">
                 Our handbook covers all aspects of well-being, providing a
                 complete roadmap for your wellness journey.
               </p>
             </div>
 
-            <div className="rounded-xl bg-stone-50 p-6">
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-[#4A7C59]/10">
+            <div className="rounded-2xl bg-muted-50 p-6">
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-secondary-100">
                 <svg
-                  className="h-5 w-5 text-[#4A7C59]"
+                  className="h-5 w-5 text-secondary-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -118,19 +118,19 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <h3 className="mb-2 font-semibold text-stone-900">
+              <h3 className="mb-2 font-semibold text-foreground">
                 Supportive Community
               </h3>
-              <p className="text-sm text-stone-600">
+              <p className="text-sm text-foreground-muted">
                 Connect with others who share your goals. Learn from their
                 experiences and share your own insights.
               </p>
             </div>
 
-            <div className="rounded-xl bg-stone-50 p-6">
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-[#4A7C59]/10">
+            <div className="rounded-2xl bg-muted-50 p-6">
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-accent-100">
                 <svg
-                  className="h-5 w-5 text-[#4A7C59]"
+                  className="h-5 w-5 text-accent-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -143,19 +143,19 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <h3 className="mb-2 font-semibold text-stone-900">
+              <h3 className="mb-2 font-semibold text-foreground">
                 Practical Approach
               </h3>
-              <p className="text-sm text-stone-600">
+              <p className="text-sm text-foreground-muted">
                 No complex theories—just actionable advice you can implement
                 today to start seeing results.
               </p>
             </div>
 
-            <div className="rounded-xl bg-stone-50 p-6">
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-[#4A7C59]/10">
+            <div className="rounded-2xl bg-muted-50 p-6">
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-lavender-100">
                 <svg
-                  className="h-5 w-5 text-[#4A7C59]"
+                  className="h-5 w-5 text-lavender-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -168,10 +168,10 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <h3 className="mb-2 font-semibold text-stone-900">
+              <h3 className="mb-2 font-semibold text-foreground">
                 Holistic Focus
               </h3>
-              <p className="text-sm text-stone-600">
+              <p className="text-sm text-foreground-muted">
                 We address the whole person—body, mind, and spirit—because true
                 wellness encompasses all dimensions.
               </p>
@@ -180,17 +180,17 @@ export default function AboutPage() {
         </section>
 
         {/* Author Section */}
-        <section className="mb-16 rounded-2xl bg-gradient-to-br from-[#4A7C59]/5 to-[#4A7C59]/10 p-8">
+        <section className="mb-16 rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100 p-8">
           <div className="flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left">
-            <div className="mb-4 flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-[#4A7C59]/20 sm:mb-0 sm:mr-6">
-              <span className="text-3xl font-bold text-[#4A7C59]">MC</span>
+            <div className="mb-4 flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-primary-200 sm:mb-0 sm:mr-6">
+              <span className="text-3xl font-bold text-primary-700">MC</span>
             </div>
             <div>
-              <h3 className="mb-1 text-xl font-bold text-stone-900">
+              <h3 className="mb-1 font-serif text-xl font-bold text-foreground">
                 Maxwell Collins
               </h3>
-              <p className="mb-3 text-sm text-[#4A7C59]">Founder & Author</p>
-              <p className="text-stone-600">
+              <p className="mb-3 text-sm text-primary-600">Founder & Author</p>
+              <p className="text-foreground-muted">
                 Passionate about holistic wellness and personal development,
                 Maxwell created Life Sphere to share the principles and practices
                 that have transformed his life. His goal is to help others
@@ -202,23 +202,23 @@ export default function AboutPage() {
 
         {/* CTA Section */}
         <section className="text-center">
-          <h2 className="mb-4 text-2xl font-bold text-stone-900">
+          <h2 className="mb-4 font-serif text-2xl font-bold text-foreground">
             Start Your Journey Today
           </h2>
-          <p className="mx-auto mb-8 max-w-xl text-stone-600">
+          <p className="mx-auto mb-8 max-w-xl text-foreground-muted">
             Whether you&apos;re just beginning or looking to deepen your practice,
             we have resources to support you every step of the way.
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/handbook"
-              className="inline-flex items-center justify-center rounded-lg bg-[#4A7C59] px-6 py-3 text-base font-medium text-white shadow-sm transition-colors hover:bg-[#3d6649]"
+              className="inline-flex items-center justify-center rounded-xl bg-primary-500 px-6 py-3 text-base font-medium text-white shadow-sm transition-all hover:bg-primary-600 hover:shadow-md"
             >
               Read the Handbook
             </Link>
             <Link
               href="/community"
-              className="inline-flex items-center justify-center rounded-lg border border-stone-300 bg-white px-6 py-3 text-base font-medium text-stone-700 shadow-sm transition-colors hover:bg-stone-50"
+              className="inline-flex items-center justify-center rounded-xl border border-muted-200 bg-background-card px-6 py-3 text-base font-medium text-foreground shadow-sm transition-all hover:bg-muted-50"
             >
               Join the Community
             </Link>

@@ -62,7 +62,7 @@ function TableOfContents({ chapters }: TableOfContentsProps) {
 
   return (
     <nav className="max-h-[calc(100vh-8rem)] overflow-y-auto">
-      <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-stone-500">
+      <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-500">
         Contents
       </h2>
 
@@ -73,14 +73,14 @@ function TableOfContents({ chapters }: TableOfContentsProps) {
               type="button"
               onClick={() => handleClick(chapter.id)}
               className={cn(
-                "block w-full rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors",
+                "block w-full rounded-xl px-3 py-2 text-left text-sm font-medium transition-colors",
                 activeId === chapter.id
-                  ? "bg-[#4A7C59]/10 text-[#4A7C59]"
-                  : "text-stone-600 hover:bg-stone-100 hover:text-stone-900"
+                  ? "bg-primary-100 text-primary-700"
+                  : "text-foreground-muted hover:bg-muted-100 hover:text-foreground"
               )}
             >
               {chapter.number !== undefined && (
-                <span className="mr-2 text-stone-400">
+                <span className="mr-2 text-muted-400">
                   {chapter.number}.
                 </span>
               )}
@@ -88,17 +88,17 @@ function TableOfContents({ chapters }: TableOfContentsProps) {
             </button>
 
             {chapter.sections && chapter.sections.length > 0 && (
-              <ul className="ml-4 mt-1 space-y-1 border-l border-stone-200 pl-3">
+              <ul className="ml-4 mt-1 space-y-1 border-l border-muted-200 pl-3">
                 {chapter.sections.map((section) => (
                   <li key={section.id}>
                     <button
                       type="button"
                       onClick={() => handleClick(section.id)}
                       className={cn(
-                        "block w-full rounded-lg px-3 py-1.5 text-left text-sm transition-colors",
+                        "block w-full rounded-xl px-3 py-1.5 text-left text-sm transition-colors",
                         activeId === section.id
-                          ? "text-[#4A7C59]"
-                          : "text-stone-500 hover:text-stone-700"
+                          ? "text-primary-600"
+                          : "text-muted-500 hover:text-foreground"
                       )}
                     >
                       {section.title}

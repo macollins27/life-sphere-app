@@ -1,5 +1,135 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter);
+  /* Fonts */
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, serif;
+
+  /* Primary - Warm Sage Green */
+  --color-primary-50: #f4f7f2;
+  --color-primary-100: #e6ede3;
+  --color-primary-200: #cddcc7;
+  --color-primary-300: #a8c39e;
+  --color-primary-400: #87a878;
+  --color-primary-500: #6a8f5b;
+  --color-primary-600: #537346;
+  --color-primary-700: #435c39;
+  --color-primary-800: #384a31;
+  --color-primary-900: #2f3e29;
+  --color-primary-950: #172013;
+
+  /* Secondary - Soft Teal */
+  --color-secondary-50: #f2f7f7;
+  --color-secondary-100: #e0eded;
+  --color-secondary-200: #c3dcdc;
+  --color-secondary-300: #98c3c3;
+  --color-secondary-400: #6ea3a3;
+  --color-secondary-500: #5b8a8a;
+  --color-secondary-600: #4a7272;
+  --color-secondary-700: #3f5e5e;
+  --color-secondary-800: #374e4e;
+  --color-secondary-900: #314343;
+  --color-secondary-950: #1a2626;
+
+  /* Accent - Terracotta/Clay */
+  --color-accent-50: #fdf6f3;
+  --color-accent-100: #fbeae4;
+  --color-accent-200: #f8d5c9;
+  --color-accent-300: #f2b8a4;
+  --color-accent-400: #e99577;
+  --color-accent-500: #c4846c;
+  --color-accent-600: #b06a4f;
+  --color-accent-700: #935640;
+  --color-accent-800: #7a4838;
+  --color-accent-900: #664032;
+  --color-accent-950: #371f17;
+
+  /* Lavender - Spiritual/Mind */
+  --color-lavender-50: #f8f6fa;
+  --color-lavender-100: #f0ecf4;
+  --color-lavender-200: #e3dceb;
+  --color-lavender-300: #cfc3dc;
+  --color-lavender-400: #b5a3c7;
+  --color-lavender-500: #a89bb5;
+  --color-lavender-600: #8c7a9a;
+  --color-lavender-700: #756683;
+  --color-lavender-800: #62566c;
+  --color-lavender-900: #52485a;
+  --color-lavender-950: #322c38;
+
+  /* Background & Foreground */
+  --color-background: #faf7f2;
+  --color-background-card: #ffffff;
+  --color-foreground: #3d3d3d;
+  --color-foreground-muted: #6b6b6b;
+
+  /* Muted/Warm Grays */
+  --color-muted-50: #faf9f7;
+  --color-muted-100: #f3f1ed;
+  --color-muted-200: #e8e4dc;
+  --color-muted-300: #d5cfc3;
+  --color-muted-400: #b8b0a0;
+  --color-muted-500: #9f9686;
+  --color-muted-600: #8a8072;
+  --color-muted-700: #736a5f;
+  --color-muted-800: #615951;
+  --color-muted-900: #524c45;
+  --color-muted-950: #2b2824;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* Warm Shadows */
+  --shadow-sm: 0 1px 2px rgba(61, 61, 61, 0.05);
+  --shadow: 0 4px 12px rgba(61, 61, 61, 0.08);
+  --shadow-md: 0 8px 24px rgba(61, 61, 61, 0.1);
+  --shadow-lg: 0 16px 48px rgba(61, 61, 61, 0.12);
+  --shadow-xl: 0 24px 64px rgba(61, 61, 61, 0.14);
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-primary-200);
+  color: var(--color-primary-900);
+}
+
+/* Focus Styles */
+*:focus-visible {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 2px;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-muted-100);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-muted-300);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted-400);
 }

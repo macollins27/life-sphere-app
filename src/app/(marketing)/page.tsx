@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { Button, Card, CardHeader, CardTitle, CardDescription } from "@/shared/components/ui";
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  DecorativeBlob,
+  DecorativeGradientOrb,
+} from "@/shared/components/ui";
 
 const features = [
   {
@@ -16,6 +24,7 @@ const features = [
         />
       </svg>
     ),
+    color: "primary",
   },
   {
     title: "Body & Nutrition",
@@ -31,6 +40,7 @@ const features = [
         />
       </svg>
     ),
+    color: "accent",
   },
   {
     title: "Relationships & Connection",
@@ -46,6 +56,7 @@ const features = [
         />
       </svg>
     ),
+    color: "secondary",
   },
   {
     title: "Purpose & Growth",
@@ -61,21 +72,29 @@ const features = [
         />
       </svg>
     ),
+    color: "lavender",
   },
 ];
 
 export default function HomePage() {
+  const colorClasses = {
+    primary: { bg: "bg-primary-100", text: "text-primary-600" },
+    accent: { bg: "bg-accent-100", text: "text-accent-600" },
+    secondary: { bg: "bg-secondary-100", text: "text-secondary-600" },
+    lavender: { bg: "bg-lavender-100", text: "text-lavender-600" },
+  };
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-white to-stone-50 py-20 sm:py-32">
+      <section className="relative overflow-hidden bg-gradient-to-b from-background to-muted-50 py-20 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+            <h1 className="font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
               Nurture Every Aspect of{" "}
-              <span className="text-[#4A7C59]">Your Life</span>
+              <span className="text-primary-500">Your Life</span>
             </h1>
-            <p className="mt-6 text-lg leading-8 text-stone-600 sm:text-xl">
+            <p className="mt-6 text-lg leading-8 text-foreground-muted sm:text-xl">
               Life Sphere is a supportive community where you can explore holistic
               wellness, share your journey, and connect with others who are
               committed to living a balanced, fulfilling life.
@@ -94,34 +113,26 @@ export default function HomePage() {
         </div>
 
         {/* Decorative background elements */}
-        <div className="absolute -top-24 right-0 -z-10 opacity-20">
-          <svg
-            className="h-96 w-96 text-[#4A7C59]"
-            viewBox="0 0 200 200"
-            fill="currentColor"
-          >
-            <circle cx="100" cy="100" r="80" />
-          </svg>
-        </div>
-        <div className="absolute -bottom-24 left-0 -z-10 opacity-10">
-          <svg
-            className="h-96 w-96 text-[#4A7C59]"
-            viewBox="0 0 200 200"
-            fill="currentColor"
-          >
-            <circle cx="100" cy="100" r="80" />
-          </svg>
-        </div>
+        <DecorativeBlob
+          variant="primary"
+          size="xl"
+          className="-top-24 right-0"
+        />
+        <DecorativeGradientOrb
+          variant="accent"
+          size="xl"
+          className="-bottom-24 left-0"
+        />
       </section>
 
       {/* Mission Statement */}
-      <section className="bg-white py-16 sm:py-24">
+      <section className="bg-background-card py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Our Mission
             </h2>
-            <p className="mt-6 text-lg leading-8 text-stone-600">
+            <p className="mt-6 text-lg leading-8 text-foreground-muted">
               We believe that true wellness encompasses every dimension of life—mind,
               body, relationships, and purpose. Life Sphere provides a safe,
               encouraging space where individuals can learn, share, and grow together.
@@ -133,38 +144,41 @@ export default function HomePage() {
       </section>
 
       {/* What We Offer */}
-      <section className="bg-stone-50 py-16 sm:py-24">
+      <section className="bg-muted-50 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               What We Offer
             </h2>
-            <p className="mt-4 text-lg text-stone-600">
+            <p className="mt-4 text-lg text-foreground-muted">
               Explore the key areas of wellness that our community supports
             </p>
           </div>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {features.map((feature) => (
-              <Card key={feature.title} className="transition-shadow hover:shadow-md">
-                <CardHeader>
-                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#4A7C59]/10 text-[#4A7C59]">
-                    {feature.icon}
-                  </div>
-                  <CardTitle>{feature.title}</CardTitle>
-                  <CardDescription>{feature.description}</CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
+            {features.map((feature) => {
+              const colors = colorClasses[feature.color as keyof typeof colorClasses];
+              return (
+                <Card key={feature.title} className="transition-shadow hover:shadow-md">
+                  <CardHeader>
+                    <div className={`mb-3 flex h-12 w-12 items-center justify-center rounded-xl ${colors.bg} ${colors.text}`}>
+                      {feature.icon}
+                    </div>
+                    <CardTitle>{feature.title}</CardTitle>
+                    <CardDescription>{feature.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Join Our Community CTA */}
-      <section className="bg-[#4A7C59] py-16 sm:py-24">
+      <section className="bg-primary-500 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Join Our Community
             </h2>
             <p className="mt-4 text-lg text-white/90">
@@ -175,7 +189,7 @@ export default function HomePage() {
               <Link href="/register">
                 <Button
                   size="lg"
-                  className="bg-white text-[#4A7C59] hover:bg-stone-100"
+                  className="bg-white text-primary-600 hover:bg-muted-50"
                 >
                   Create Free Account
                 </Button>

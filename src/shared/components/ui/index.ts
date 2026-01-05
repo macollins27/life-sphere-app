@@ -11,3 +11,11 @@ export {
 export { Avatar, type AvatarProps } from "./avatar";
 export { Badge, type BadgeProps } from "./badge";
 export { Skeleton } from "./skeleton";
+export {
+  DecorativeBlob,
+  DecorativeCircle,
+  DecorativeGradientOrb,
+  type BlobVariant,
+  type BlobSize,
+  type DecorativeBlobProps,
+} from "./decorative-blob";

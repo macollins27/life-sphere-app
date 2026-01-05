@@ -4,17 +4,17 @@ function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-stone-200 bg-stone-50">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-4">
+    <footer className="border-t border-muted-200 bg-muted-50">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid gap-12 md:grid-cols-4">
           {/* Brand */}
           <div className="md:col-span-2">
             <Link
               href="/"
-              className="flex items-center gap-2 text-xl font-semibold text-[#4A7C59]"
+              className="flex items-center gap-2.5 text-xl font-semibold text-primary-500"
             >
               <svg
-                className="h-8 w-8"
+                className="h-9 w-9"
                 viewBox="0 0 32 32"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -27,9 +27,9 @@ function Footer() {
                 />
                 <circle cx="16" cy="16" r="4" fill="currentColor" />
               </svg>
-              <span>Life Sphere</span>
+              <span className="font-serif">Life Sphere</span>
             </Link>
-            <p className="mt-4 max-w-md text-sm text-stone-600">
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-foreground-muted">
               A supportive community focused on holistic wellness, personal growth,
               and meaningful connections. Join us on the journey to a balanced life.
             </p>
@@ -37,30 +37,30 @@ function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-stone-900">Quick Links</h3>
-            <ul className="mt-4 space-y-2">
+            <h3 className="font-serif font-semibold text-foreground">Quick Links</h3>
+            <ul className="mt-5 space-y-3">
               <li>
                 <Link
                   href="/about"
-                  className="text-sm text-stone-600 transition-colors hover:text-[#4A7C59]"
+                  className="text-sm text-foreground-muted transition-colors hover:text-primary-500"
                 >
                   About Us
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/community"
-                  className="text-sm text-stone-600 transition-colors hover:text-[#4A7C59]"
+                  href="/handbook"
+                  className="text-sm text-foreground-muted transition-colors hover:text-primary-500"
                 >
-                  Community
+                  Handbook
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/contact"
-                  className="text-sm text-stone-600 transition-colors hover:text-[#4A7C59]"
+                  href="/community"
+                  className="text-sm text-foreground-muted transition-colors hover:text-primary-500"
                 >
-                  Contact
+                  Community
                 </Link>
               </li>
             </ul>
@@ -68,12 +68,12 @@ function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="font-semibold text-stone-900">Legal</h3>
-            <ul className="mt-4 space-y-2">
+            <h3 className="font-serif font-semibold text-foreground">Legal</h3>
+            <ul className="mt-5 space-y-3">
               <li>
                 <Link
                   href="/privacy"
-                  className="text-sm text-stone-600 transition-colors hover:text-[#4A7C59]"
+                  className="text-sm text-foreground-muted transition-colors hover:text-primary-500"
                 >
                   Privacy Policy
                 </Link>
@@ -81,7 +81,7 @@ function Footer() {
               <li>
                 <Link
                   href="/terms"
-                  className="text-sm text-stone-600 transition-colors hover:text-[#4A7C59]"
+                  className="text-sm text-foreground-muted transition-colors hover:text-primary-500"
                 >
                   Terms of Service
                 </Link>
@@ -89,7 +89,7 @@ function Footer() {
               <li>
                 <Link
                   href="/guidelines"
-                  className="text-sm text-stone-600 transition-colors hover:text-[#4A7C59]"
+                  className="text-sm text-foreground-muted transition-colors hover:text-primary-500"
                 >
                   Community Guidelines
                 </Link>
@@ -99,8 +99,8 @@ function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-12 border-t border-stone-200 pt-8">
-          <p className="text-center text-sm text-stone-500">
+        <div className="mt-16 border-t border-muted-200 pt-8">
+          <p className="text-center text-sm text-muted-500">
             &copy; {currentYear} Life Sphere. All rights reserved.
           </p>
         </div>

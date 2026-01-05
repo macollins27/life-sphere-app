@@ -4,15 +4,15 @@ import { UserMenu } from "./user-menu";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-stone-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <header className="sticky top-0 z-40 w-full border-b border-muted-200 bg-background-card/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background-card/80">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-xl font-semibold text-[#4A7C59]"
+          className="flex items-center gap-2.5 text-xl font-semibold text-primary-500 transition-colors hover:text-primary-600"
         >
           <svg
-            className="h-8 w-8"
+            className="h-9 w-9"
             viewBox="0 0 32 32"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ function Header() {
             />
             <circle cx="16" cy="16" r="4" fill="currentColor" />
           </svg>
-          <span>Life Sphere</span>
+          <span className="font-serif">Life Sphere</span>
         </Link>
 
         {/* Navigation */}

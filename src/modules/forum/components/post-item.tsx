@@ -29,8 +29,8 @@ export function PostItem({ post, isReply = false }: PostItemProps) {
     <div
       className={`flex gap-4 ${
         isReply
-          ? "ml-8 border-l-2 border-stone-200 pl-4"
-          : "rounded-xl border border-stone-200 bg-white p-6"
+          ? "ml-8 border-l-2 border-muted-200 pl-4"
+          : "rounded-2xl border border-muted-200 bg-background-card p-6"
       }`}
     >
       {/* Author Info Sidebar (desktop) */}
@@ -46,17 +46,17 @@ export function PostItem({ post, isReply = false }: PostItemProps) {
           </Link>
           <Link
             href={`/members/${post.author.username}`}
-            className="mt-2 font-medium text-stone-900 hover:text-[#4A7C59]"
+            className="mt-2 font-medium text-foreground hover:text-primary-600"
           >
             {authorName}
           </Link>
           {post.author.postCount !== undefined && (
-            <p className="text-xs text-stone-500">
+            <p className="text-xs text-muted-500">
               {post.author.postCount} posts
             </p>
           )}
           {post.author.createdAt && (
-            <p className="text-xs text-stone-500">
+            <p className="text-xs text-muted-500">
               Joined {formatRelativeTime(post.author.createdAt)}
             </p>
           )}
@@ -76,11 +76,11 @@ export function PostItem({ post, isReply = false }: PostItemProps) {
           <div>
             <Link
               href={`/members/${post.author.username}`}
-              className="font-medium text-stone-900 hover:text-[#4A7C59]"
+              className="font-medium text-foreground hover:text-primary-600"
             >
               {authorName}
             </Link>
-            <p className="text-xs text-stone-500">
+            <p className="text-xs text-muted-500">
               {formatRelativeTime(post.createdAt)}
               {post.isEdited && post.editedAt && (
                 <span className="ml-2 italic">
@@ -92,13 +92,13 @@ export function PostItem({ post, isReply = false }: PostItemProps) {
         </div>
 
         {/* Post Content */}
-        <div className="prose prose-stone max-w-none prose-p:my-2">
+        <div className="prose max-w-none prose-p:my-2 prose-p:text-foreground-muted">
           <p className="whitespace-pre-wrap">{post.content}</p>
         </div>
 
         {/* Footer (desktop, not reply) */}
         {!isReply && (
-          <div className="mt-4 hidden border-t border-stone-100 pt-3 text-xs text-stone-500 sm:block">
+          <div className="mt-4 hidden border-t border-muted-100 pt-3 text-xs text-muted-500 sm:block">
             <span>#{post.position}</span>
             {" • "}
             <span>{formatRelativeTime(post.createdAt)}</span>

@@ -25,10 +25,10 @@ function Nav() {
             <Link
               href={link.href}
               className={cn(
-                "rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-stone-100",
+                "rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-muted-100",
                 pathname === link.href
-                  ? "text-[#4A7C59]"
-                  : "text-stone-600 hover:text-stone-900"
+                  ? "text-primary-600"
+                  : "text-foreground-muted hover:text-foreground"
               )}
             >
               {link.label}
@@ -41,7 +41,7 @@ function Nav() {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex h-10 w-10 items-center justify-center rounded-lg text-stone-600 hover:bg-stone-100 md:hidden"
+        className="flex h-10 w-10 items-center justify-center rounded-xl text-foreground-muted transition-colors hover:bg-muted-100 md:hidden"
         aria-expanded={isOpen}
         aria-label="Toggle navigation menu"
       >
@@ -71,7 +71,7 @@ function Nav() {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="absolute right-0 top-12 z-50 w-48 rounded-xl border border-stone-200 bg-white py-2 shadow-lg md:hidden">
+        <div className="absolute right-0 top-14 z-50 w-52 rounded-2xl border border-muted-200 bg-background-card py-3 shadow-lg md:hidden">
           <ul className="flex flex-col">
             {navLinks.map((link) => (
               <li key={link.href}>
@@ -79,10 +79,10 @@ function Nav() {
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   className={cn(
-                    "block px-4 py-2 text-sm font-medium transition-colors hover:bg-stone-50",
+                    "block px-5 py-2.5 text-sm font-medium transition-colors hover:bg-muted-50",
                     pathname === link.href
-                      ? "text-[#4A7C59]"
-                      : "text-stone-600 hover:text-stone-900"
+                      ? "text-primary-600"
+                      : "text-foreground-muted hover:text-foreground"
                   )}
                 >
                   {link.label}

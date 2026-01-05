@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { DM_Sans, Fraunces } from "next/font/google";
 import { Header, Footer } from "@/shared/components/layout";
 import { AuthProvider } from "@/modules/auth";
 import "./globals.css";
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-dm-sans",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-fraunces",
 });
 
 export const metadata: Metadata = {
@@ -33,8 +39,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="flex min-h-screen flex-col bg-stone-50 font-sans text-stone-900 antialiased">
+    <html lang="en" className={`${dmSans.variable} ${fraunces.variable}`}>
+      <body className="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased">
         <AuthProvider>
           <Header />
           <main className="flex-1">{children}</main>

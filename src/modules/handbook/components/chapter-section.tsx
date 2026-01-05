@@ -10,19 +10,19 @@ function ChapterSection({ chapter }: ChapterSectionProps) {
       {/* Chapter Header */}
       <div className="mb-8" data-toc-heading>
         {chapter.number !== undefined && (
-          <span className="mb-2 block text-6xl font-light text-stone-200">
+          <span className="mb-2 block text-6xl font-light text-muted-200">
             {chapter.number}
           </span>
         )}
-        <h2 className="text-2xl font-bold text-stone-900 sm:text-3xl">
+        <h2 className="font-serif text-2xl font-bold text-foreground sm:text-3xl">
           {chapter.title}
         </h2>
       </div>
 
       {/* Chapter Intro */}
       {chapter.intro && (
-        <div className="mb-10 border-l-4 border-[#4A7C59]/30 pl-6">
-          <p className="text-lg italic leading-relaxed text-stone-600">
+        <div className="mb-10 border-l-4 border-primary-300 pl-6">
+          <p className="text-lg italic leading-relaxed text-foreground-muted">
             {chapter.intro.split("\n\n").map((paragraph, idx) => (
               <span key={idx} className="mb-4 block last:mb-0">
                 {paragraph}
@@ -34,7 +34,7 @@ function ChapterSection({ chapter }: ChapterSectionProps) {
 
       {/* Chapter Content (for chapters without sections) */}
       {chapter.content && !chapter.sections && (
-        <div className="prose prose-stone prose-lg max-w-none">
+        <div className="prose prose-lg max-w-none">
           {chapter.content.split("\n\n").map((paragraph, idx) => {
             // Check if this is a numbered list item
             if (paragraph.match(/^\d+\.\s\*\*/)) {
@@ -45,7 +45,7 @@ function ChapterSection({ chapter }: ChapterSectionProps) {
               );
             }
             return (
-              <p key={idx} className="mb-4 leading-relaxed text-stone-700">
+              <p key={idx} className="mb-4 leading-relaxed text-foreground-muted">
                 {renderRichText(paragraph)}
               </p>
             );
@@ -63,12 +63,12 @@ function ChapterSection({ chapter }: ChapterSectionProps) {
               className="scroll-mt-24"
               data-toc-heading
             >
-              <h3 className="mb-4 text-xl font-semibold text-stone-800">
+              <h3 className="mb-4 font-serif text-xl font-semibold text-foreground">
                 {section.title}
               </h3>
-              <div className="prose prose-stone prose-lg max-w-none">
+              <div className="prose prose-lg max-w-none">
                 {section.content.split("\n\n").map((paragraph, idx) => (
-                  <p key={idx} className="mb-4 leading-relaxed text-stone-700">
+                  <p key={idx} className="mb-4 leading-relaxed text-foreground-muted">
                     {renderRichText(paragraph)}
                   </p>
                 ))}
@@ -80,9 +80,9 @@ function ChapterSection({ chapter }: ChapterSectionProps) {
 
       {/* Chapter Divider */}
       <div className="mb-16 mt-16 flex items-center justify-center">
-        <div className="h-px w-16 bg-stone-200" />
-        <div className="mx-4 h-2 w-2 rounded-full bg-[#4A7C59]/30" />
-        <div className="h-px w-16 bg-stone-200" />
+        <div className="h-px w-16 bg-muted-200" />
+        <div className="mx-4 h-2 w-2 rounded-full bg-primary-300" />
+        <div className="h-px w-16 bg-muted-200" />
       </div>
     </section>
   );
@@ -95,7 +95,7 @@ function renderRichText(text: string): React.ReactNode {
   return parts.map((part, idx) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={idx} className="font-semibold text-stone-900">
+        <strong key={idx} className="font-semibold text-foreground">
           {part.slice(2, -2)}
         </strong>
       );

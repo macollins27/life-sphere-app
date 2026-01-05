@@ -2,7 +2,7 @@ import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { cn } from "@/shared/utils/cn";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "ghost" | "danger";
+  variant?: "primary" | "secondary" | "ghost" | "danger" | "accent";
   size?: "sm" | "md" | "lg";
 }
 
@@ -13,21 +13,23 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled}
         className={cn(
-          "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+          "inline-flex items-center justify-center rounded-xl font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
           {
-            "bg-[#4A7C59] text-white hover:bg-[#3d6649] focus-visible:ring-[#4A7C59]":
+            "bg-primary-500 text-white shadow-sm hover:bg-primary-600 hover:shadow-md hover:-translate-y-0.5 focus-visible:ring-primary-500":
               variant === "primary",
-            "bg-stone-100 text-stone-900 hover:bg-stone-200 focus-visible:ring-stone-400":
+            "bg-muted-100 text-foreground hover:bg-muted-200 focus-visible:ring-muted-400":
               variant === "secondary",
-            "bg-transparent text-stone-700 hover:bg-stone-100 focus-visible:ring-stone-400":
+            "bg-transparent text-foreground hover:bg-muted-100 focus-visible:ring-muted-400":
               variant === "ghost",
-            "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500":
+            "bg-red-500 text-white hover:bg-red-600 focus-visible:ring-red-500":
               variant === "danger",
+            "bg-accent-500 text-white shadow-sm hover:bg-accent-600 hover:shadow-md hover:-translate-y-0.5 focus-visible:ring-accent-500":
+              variant === "accent",
           },
           {
-            "h-8 px-3 text-sm": size === "sm",
-            "h-10 px-4 text-sm": size === "md",
-            "h-12 px-6 text-base": size === "lg",
+            "h-9 px-4 text-sm": size === "sm",
+            "h-11 px-5 text-sm": size === "md",
+            "h-13 px-7 text-base": size === "lg",
           },
           className
         )}
